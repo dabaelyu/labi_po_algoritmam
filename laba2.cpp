@@ -1,5 +1,5 @@
 #include <iostream>
-#include <iomanip> // для std::fixed и std::setprecision
+#include <iomanip> 
 
 using namespace std;
 
@@ -7,7 +7,6 @@ const int MAX_SIZE = 20;
 const double MIN_VALUE = 0.0;
 const double MAX_VALUE = 100.0;
 
-// --- СТЕК ---
 class Stack {
 private:
     double array[MAX_SIZE];
@@ -32,7 +31,7 @@ public:
     double pop() {
         if (isEmpty()) {
             cout << "Ошибка: попытка извлечь элемент из пустого стека." << endl;
-            return -1; // Условное значение ошибки
+            return -1;
         }
         return array[top--];
     }
@@ -40,7 +39,7 @@ public:
     double peek() const {
         if (isEmpty()) {
             cout << "Ошибка: попытка получить вершину пустого стека." << endl;
-            return -1; // Условное значение ошибки
+            return -1;
         }
         return array[top];
     }
@@ -66,7 +65,6 @@ public:
     }
 };
 
-// --- ОЧЕРЕДЬ ---
 class Queue {
 private:
     double array[MAX_SIZE];
@@ -95,7 +93,7 @@ public:
     double dequeue() {
         if (isEmpty()) {
             cout << "Ошибка: попытка извлечь элемент из пустой очереди." << endl;
-            return -1; // Условное значение ошибки
+            return -1;
         }
         double value = array[front_idx];
         front_idx = (front_idx + 1) % MAX_SIZE;
@@ -106,7 +104,7 @@ public:
     double front() const {
         if (isEmpty()) {
             cout << "Ошибка: попытка получить начало пустой очереди." << endl;
-            return -1; // Условное значение ошибки
+            return -1;
         }
         return array[front_idx];
     }
@@ -135,7 +133,6 @@ public:
     }
 };
 
-// --- МИНИМАЛЬНАЯ ДВОИЧНАЯ КУЧА ---
 class MinHeap {
 private:
     double array[MAX_SIZE];
@@ -189,7 +186,7 @@ public:
     double extractMin() {
         if (isEmpty()) {
             cout << "Ошибка: попытка извлечь минимум из пустой кучи." << endl;
-            return -1; // Условное значение ошибки
+            return -1;
         }
         double min_val = array[0];
         array[0] = array[heap_size - 1];
@@ -203,7 +200,7 @@ public:
     double getMin() const {
         if (isEmpty()) {
             cout << "Ошибка: попытка получить минимум из пустой кучи." << endl;
-            return -1; // Условное значение ошибки
+            return -1;
         }
         return array[0];
     }
@@ -229,9 +226,8 @@ public:
     }
 };
 
-// --- ОСНОВНАЯ ФУНКЦИЯ ---
+
 int main() {
-    // Используем английские названия для удобства демонстрации
     Stack stack;
     Queue queue;
     MinHeap heap;
@@ -261,12 +257,10 @@ int main() {
     cout << "Массив кучи после extract_min: "; heap.print();
 
     cout << "\n=== Тестирование граничных условий ===" << endl;
-    // Переполнение стека
     Stack big_stack;
     for (int i = 0; i < 21; ++i) {
         big_stack.push(1.0 + i);
     }
-    // Неправильное значение
     queue.enqueue(-5.5);
 
     return 0;
