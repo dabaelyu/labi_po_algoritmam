@@ -1,3 +1,5 @@
+/// 1 ZADANIE
+/// 1 ZADANIE
 #include <iostream>
 #include <iomanip> 
 
@@ -263,5 +265,73 @@ int main() {
     }
     queue.enqueue(-5.5);
 
+    return 0;
+}
+
+/// 2 ZADANIE
+/// 2 ZADANIE
+
+#include <iostream>
+#include <vector>
+#include <queue>
+#include <string>
+#include <tuple>
+
+using namespace std;
+
+int main() {
+    int n, m;
+    cin >> n >> m;
+
+    vector<string> maze(n);
+    for (int i = 0; i < n; ++i) {
+        cin >> maze[i];
+    }
+
+    int start_r, start_c, end_r, end_c;
+    for (int i = 0; i < n; ++i) {
+        for (int j = 0; j < m; ++j) {
+            if (maze[i][j] == 'S') {
+                start_r = i;
+                start_c = j;
+            }
+            else if (maze[i][j] == 'F') {
+                end_r = i;
+                end_c = j;
+            }
+        }
+    }
+
+    queue<tuple<int, int, int, string>> q;
+    vector<vector<bool>> visited(n, vector<bool>(m, false));
+
+    q.push({ start_r, start_c, 0, "" });
+    visited[start_r][start_c] = true;
+
+    int dr[] = { -1, 1, 0, 0 }; 
+    int dc[] = { 0, 0, 1, -1 }; 
+    char dir_char[] = { 'U', 'D', 'R', 'L' };
+
+    while (!q.empty()) {
+        auto [r, c, dist, path] = q.front();
+        q.pop();
+
+        if (r == end_r && c == end_c) {
+            cout << dist << "\n" << path << endl;
+            return 0;
+        }
+
+        for (int i = 0; i < 4; ++i) {
+            int nr = r + dr[i];
+            int nc = c + dc[i];
+
+            if (nr >= 0 && nr < n && nc >= 0 && nc < m && !visited[nr][nc] && maze[nr][nc] != '#') {
+                visited[nr][nc] = true;
+                q.push({ nr, nc, dist + 1, path + dir_char[i] });
+            }
+        }
+    }
+
+    cout << -1 << endl;
     return 0;
 }
