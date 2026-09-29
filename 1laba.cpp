@@ -154,3 +154,35 @@ int main() {
 
     return 0;
 }
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+graph TD
+    User[Пользователь] -- "HTTP-запросы, клики, данные форм" --> Web[Веб-интерфейс]
+    Web -- "REST API запросы (JSON): ID студента, время" --> API[API / Backend]
+    API -- "SQL/NoSQL запросы: INSERT, SELECT" --> DB[(База данных)]
+    
+    Web -. "Логи ошибок UI, коды 4xx/5xx" .-> Log[Журнал ошибок]
+    API -. "Exceptions, stack trace, системные ошибки" .-> Log
+
+    subgraph Что будет, если упадет?
+        direction LR
+        W_Error[Веб: Нет доступа к UI]
+        A_Error[API: Ошибки 5xx у клиентов]
+        DB_Error[БД: Невозможность чтения/записи]
+        L_Error[Лог: Сложности с дебагом]
+    end
